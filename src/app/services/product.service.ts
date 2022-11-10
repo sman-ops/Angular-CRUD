@@ -85,4 +85,11 @@ export class ProductService {
       products: pageProducts,
     });
   }
+
+  public addNewProduct(product: Product): Observable<Product> {
+    // genérateur aléatoire
+    product.id = UUID.UUID();
+    this.products.push(product);
+    return of(product);
+  }
 }

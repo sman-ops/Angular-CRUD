@@ -5,6 +5,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-new-product',
@@ -13,7 +14,7 @@ import {
 })
 export class NewProductComponent implements OnInit {
   productFormGroup!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private prodService: ProductService) {}
 
   ngOnInit(): void {
     this.productFormGroup = this.fb.group({
@@ -28,6 +29,16 @@ export class NewProductComponent implements OnInit {
   handleAddProduct() {
     // to get the value from the inputs
     // console.log(this.productFormGroup.value);
+    let product = this.productFormGroup.value;
+    this.prodService.addNewProduct(product).subscribe({
+      next: (data) => {
+        alert('Porduct added  with success');
+        this.productFormGroup.reset();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   getErrorMessage(filedName: string, error: ValidationErrors) {
