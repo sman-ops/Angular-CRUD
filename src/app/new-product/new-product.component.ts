@@ -14,7 +14,7 @@ import { ProductService } from '../services/product.service';
 })
 export class NewProductComponent implements OnInit {
   productFormGroup!: FormGroup;
-  constructor(private fb: FormBuilder, private prodService: ProductService) {}
+  constructor(private fb: FormBuilder, public prodService: ProductService) {}
 
   ngOnInit(): void {
     this.productFormGroup = this.fb.group({
@@ -39,18 +39,5 @@ export class NewProductComponent implements OnInit {
         console.log(err);
       },
     });
-  }
-
-  getErrorMessage(filedName: string, error: ValidationErrors) {
-    if (error['required']) {
-      return filedName + 'is required';
-    } else if (error['minlength']) {
-      return (
-        filedName +
-        'should have at least' +
-        error['minlength']['requiredLength'] +
-        'characters'
-      );
-    } else return '';
   }
 }
