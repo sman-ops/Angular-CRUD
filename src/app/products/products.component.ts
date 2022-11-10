@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Product } from '../model/product.model';
 import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
@@ -22,7 +23,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
-    public authService: AuthentificationService
+    public authService: AuthentificationService,
+    private router: Router
   ) {}
   // j'appel la methode getAllprod qui v a me retourné immédiatmeent un objet de type
   // observable  je suis subscribe vers cette objet subscribe ,des que la donnée arrive je la récupere
@@ -106,5 +108,9 @@ export class ProductsComponent implements OnInit {
     } else {
       this.handleGetPageProducts();
     }
+  }
+
+  handleNewProduct() {
+    this.router.navigateByUrl('/admin/newProduct');
   }
 }
